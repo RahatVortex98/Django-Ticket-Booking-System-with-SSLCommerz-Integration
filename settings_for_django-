@@ -1,0 +1,24 @@
+#My Settings:
+
+'DIRS': [BASE_DIR / 'templates'],  # Global template directory
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']  # For development – where your global static files are
+STATIC_ROOT = BASE_DIR / 'staticfiles'    # For production – where collectstatic gathers files
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+
+
+
+
+#urls.py(main)
+
+from django.conf import settings
+from django.conf.urls.static import static
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
