@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { width: 80%; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9; }
+        h2 { color: #0056b3; }
+        .details p { margin: 5px 0; }
+        .ticket-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .ticket-table th, .ticket-table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        .ticket-table th { background-color: #f2f2f2; }
+        .footer { margin-top: 20px; font-size: 0.9em; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Hello {{ booking.customer_name }},</h2>
+        <p>Thank you for your booking! Your tickets are confirmed.</p>
+        <p>Here are your booking details:</p>
+
+        <div class="details">
+            <p><strong>Booking ID:</strong> {{ booking.unique_id }}</p>
+            <p><strong>Email:</strong> {{ booking.customer_email }}</p>
+            <p><strong>Booking Time:</strong> {{ booking.booking_time }}</p>
+            <p><strong>Payment Status:</strong> {% if booking.is_paid %}Paid{% else %}Pending{% endif %}</p>
+            {% if booking.transaction_id %}
+                <p><strong>Transaction ID:</strong> {{ booking.transaction_id }}</p>
+            {% endif %}
+        </div>
+
+        <h3>Tickets Booked:</h3>
+        <table class="ticket-table">
+            <thead>
+                <tr>
+                    <th>Ticket Type</th>
+                    <th>Quantity</th>
+                    <th>Price per Ticket</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ticket in booking.booked_tickets.all %}
+                <tr>
+                    <td>{{ ticket.ticket_type.name }}</td>
+                    <td>{{ ticket.quantity }}</td>
+                    <td>BDT {{ ticket.ticket_type.price|floatformat:2 }}</td>
+                    <td>BDT {{ ticket.subtotal|floatformat:2 }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" style="text-align: right;"><strong>Grand Total:</strong></td>
+                    <td><strong>BDT
+                        {% with total_grand_sum=0 %}
+                            {% for ticket in booking.booked_tickets.all %}
+                                {% with total_grand_sum=total_grand_sum|add:ticket.subtotal %}
+                                {% endwith %}
+                            {% endfor %}
+                            {{ total_grand_sum|floatformat:2 }}
+
+                        {% endwith %}
+                    </strong></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="footer">
+            <p>Please keep this email for your records. If you have any questions, please contact us.</p>
+            <p>&copy; 2025 Your Company Name. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

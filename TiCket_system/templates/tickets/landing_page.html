@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Booking System</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container my-5">
+        <h1 class="text-center mb-4">Book Your Tickets</h1>
+
+        {% if status_msg %}
+            <div id="alertContainer" class="mb-4">
+                {% if status_msg == 'success' %}
+                    <div class="alert alert-success" role="alert">
+                        Payment successful! Your unique booking ID is: <strong>{{ unique_id }}</strong>. A confirmation email has been sent to your provided email address.
+                    </div>
+                {% elif status_msg == 'failed' %}
+                    <div class="alert alert-danger" role="alert">
+                        Payment failed. Please try again. Your transaction ID (if any): <strong>{{ unique_id }}</strong>.
+                    </div>
+                {% elif status_msg == 'cancelled' %}
+                    <div class="alert alert-warning" role="alert">
+                        Payment cancelled. Your transaction ID (if any): <strong>{{ unique_id }}</strong>.
+                    </div>
+                {% elif status_msg == 'error' %}
+                    <div class="alert alert-danger" role="alert">
+                        An error occurred during payment processing. Please contact support.
+                        {% if unique_id %}
+                            (Booking ID: {{ unique_id }})
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        <div class="card p-4">
+            <h2 class="mb-3">Ticket Selection</h2>
+            <form id="bookingForm">
+                {% csrf_token %}
+                <div id="ticketSelection" class="mb-4">
+                    <div class="alert alert-info" id="loadingTickets">Loading ticket types...</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="customerName">Your Name:</label>
+                    <input type="text" class="form-control" id="customerName" name="customerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="customerEmail">Your Email:</label>
+                    <input type="email" class="form-control" id="customerEmail" name="customerEmail" required>
+                </div>
+
+                <div class="text-right">
+                    <h4>Total Amount: <span id="totalAmount">0.00</span> BDT</h4>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg btn-block mt-4">Proceed to Payment</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

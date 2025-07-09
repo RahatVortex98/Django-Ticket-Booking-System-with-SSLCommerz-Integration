@@ -1,0 +1,27 @@
+# .gitignore
+# Python
+__pycache__/
+*.pyc
+*.sqlite3
+.Python
+env/
+venv/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Django
+*.log
+*.pot
+*.mo
+*.js.map
+*.css.map
+media/ # If you handle user uploads, ignore this too
+staticfiles/ # If you use collectstatic
+
+# IDEs
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+.env # If you use environment variables for settings
