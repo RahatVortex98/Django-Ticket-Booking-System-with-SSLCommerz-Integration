@@ -100,6 +100,34 @@ Follow the prompts to create your admin user.
 python manage.py runserver
 ```
 
+Screenshots:
+Front Page:
+
+![1 Front page](https://github.com/user-attachments/assets/1201ab17-2e96-478c-b25f-18e5ae8cf577)
+
+User Input Info:
+
+![2 input front page](https://github.com/user-attachments/assets/6088f65f-e37e-4636-bdbb-aff9564b8493)
+
+SSLCOMMERZE interface:
+
+![3 SSLCOMMERZE](https://github.com/user-attachments/assets/c2b55b2c-f4fb-4a73-a6a1-63ddf47b0f37)
+
+SSLCOMMERZE OTP page:
+
+![4  OTP page](https://github.com/user-attachments/assets/c6bdbbca-c686-4f22-adf5-d1fdec233971)
+
+After Payment successful message: 
+![5  successfull msg](https://github.com/user-attachments/assets/d258fcd1-df6a-4228-b025-de7a1d528649)
+
+Customer GOT mail:
+
+![customer got mail](https://github.com/user-attachments/assets/b8abb2c7-4f75-4fa3-a7cc-7d5ae7298170)
+
+Admin Dashboard:
+
+![7](https://github.com/user-attachments/assets/befa009f-55d9-4a52-a1e1-cd0623f372f5)
+
 ## Usage
 1.  Open your browser and go to `http://127.0.0.1:8000/`.
 2.  Select the desired ticket quantities, enter your name and email.
